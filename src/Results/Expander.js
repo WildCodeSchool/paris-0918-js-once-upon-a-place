@@ -19,6 +19,14 @@ const styles = theme => ({
       width: '100%',
     },
   },
+  locations: {
+    //border:'1px solid blue',
+    marginBottom:'1vw',
+  },
+  year:{
+    //border:'1px solid red',
+    marginBottom:'1vw',
+  },
   text: {
     marginRight: '3vw',
   },
@@ -31,6 +39,9 @@ const styles = theme => ({
   },
   trailer:{
       margin: '2px',
+  },
+  synopsisReduced:{
+    //border:'1px solid yellow',
   },
   heading: {
     fontSize: theme.typography.pxToRem(30),
@@ -131,16 +142,16 @@ const DetailedExpansionPanel = props => {
             <img className={classes.affiche} src="http://www.ralentirtravaux.com/images/troie.jpg" alt={props.movie.title}/>
           </div>
           <div className={classes.column}>
-            <div className={classes.secondaryHeading}>Scenes locations: {props.movie.locations.map((location)=>{return location + ', '})}</div>
-            <div className={classes.secondaryHeading}> Shooting year: {props.movie.release_year}</div>
-            <div /*onClick={showingSynopsis}*/ className={classes.synopsisReduced}> Synopsis: {props.movie.shortSynopsis}</div>
+            <div className={classes.locations}><h4>Scenes locations: </h4>{props.movie.locations.map((location)=>{return location + ', '})}</div>
+            <div className={classes.year}> <h4>Shooting year:</h4> {props.movie.release_year}</div>
+            <div /*onClick={showingSynopsis}*/ className={classes.synopsisReduced}> <h4>Synopsis: </h4>{props.movie.shortSynopsis}</div>
     
           </div>
         </ExpansionPanelSummary>
 
         <ExpansionPanelDetails className={classes.details}>
         
-          <div className={classes.text}>Synopsis: {props.movie.synopsis} </div>
+          <div className={classes.text}><h4>Synopsis: </h4> {props.movie.synopsis} </div>
          
           <div className={classes.trailer}>
             <iframe width="350" height="155" src="https://www.youtube.com/embed/IeZrKyyXYjY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>

@@ -26,6 +26,7 @@ const styles = theme => ({
   },
   logo: {
     width: theme.spacing.unit * 6,
+    animation: 'App-logo-spin infinite 20s linear',
   },
   search: {
     position: "relative",
