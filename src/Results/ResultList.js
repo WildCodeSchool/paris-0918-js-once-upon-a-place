@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import MediaCard from './MediaCard';
 import Expander from './Expander';
 import './ResultList.css';
 

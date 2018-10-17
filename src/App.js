@@ -5,6 +5,7 @@ import './App.css';
 import Home from './Home.js';
 import Results from './Results/Results';
 import Footer from './Footer';
+import Team from './Team'
 import './App.css';
 
 class App extends Component {
@@ -21,6 +22,7 @@ class App extends Component {
     return (
       <div className="App">
         <BrowserRouter>
+          <div>
                 <Switch>
                   <Route 
                     exact path="/" 
@@ -37,9 +39,16 @@ class App extends Component {
                         inputValue={this.state.inputValue} 
                       />} 
                   />
+                  
+							    <Route path = "/team" render={()=> 
+                      <Team />}
+						      />
                 </Switch>
-            </BrowserRouter>
-        <Footer/>
+                <Footer/>
+            </div>
+          </BrowserRouter>
+
+        
       </div>
     );
   }

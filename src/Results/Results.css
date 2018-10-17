@@ -62,3 +62,11 @@
         display: none;
     }
 }
+
+
+.desktopOnly {
+
+    display: grid;
+    grid-template-columns: 5fr 6fr;
+}
+

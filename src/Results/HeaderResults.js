@@ -124,6 +124,7 @@ class HeaderResults extends Component {
         open: false
       });
       this.launchSearchLoc(iSearchStr)
+
     }
 
     render(){
@@ -154,10 +155,12 @@ class HeaderResults extends Component {
                             input: classes.inputInput
                             }}
                             onKeyUp={this.handleKeyUp}
+
                             value={inputValue}
                             onChange={this.handleChangeAndFocus}
                             onFocus={this.handleFocusAndFocus}
                             onBlur={this.handleBlur}
+
                         />
                         {this.state.open && (
                           <Autocompletion open={open} anchorEl={anchorEl} elWidth={elWidth} inputValue={inputValue} select={this.handleSelect}/>

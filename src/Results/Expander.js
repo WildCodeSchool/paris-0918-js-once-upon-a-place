@@ -9,7 +9,7 @@ import Divider from '@material-ui/core/Divider';
 
 const styles = theme => ({
   root: {
-    width: '40%',
+    width: '98%',
     //border: '1px solid red',
     marginBottom: '15px',
     marginTop: '15px',

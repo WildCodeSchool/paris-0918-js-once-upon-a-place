@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {AppBar,Tabs,Tab} from '@material-ui/core';
 import ResultList from './ResultList';
-import Map from './Map';
+import SimpleMap from './Map';
 import HeaderResults from './HeaderResults';
 import './Results.css';
 
@@ -13,10 +13,12 @@ class Results extends Component {
   };
 
   searchLoc = async (iValue) =>{
+
     const api_call = await fetch(`https://data.sfgov.org/resource/wwmu-gmzc.json?$where=title like '%25${iValue}%25'&$limit=50`);
     const data = await api_call.json();
     this.setState({
       res: api_call.ok ? data : [],
+
       isLoaded: true
     })
   };
@@ -25,8 +27,10 @@ class Results extends Component {
     this.searchLoc(this.props.inputValue)
   };
 
+
   handleChange = (_, iValue) => {
     this.setState({ value: iValue });
+
   };
 
   render(){
@@ -51,14 +55,14 @@ class Results extends Component {
                   {value === 0 && <ResultList 
                     locationsList = {this.state.res} 
                   />}
-                  {value === 1 && <Map />}
+                  {value === 1 && <SimpleMap />}
                 </div>
               </div>
               <div className="desktopOnly">      
                 <ResultList 
                   locationsList = {this.state.res} 
                 />
-                <Map />
+                <SimpleMap />
               </div>
             </div>
           </div>

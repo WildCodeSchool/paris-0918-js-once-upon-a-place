@@ -26,7 +26,7 @@ class Home extends Component {
 		})
 	}
 
-	inputChange = (e) =>{
+	inputChange = (e) =>{ 
 		this.setState({
 			inputValue: e.target.value
 		})
@@ -42,7 +42,9 @@ class Home extends Component {
 				<form>
 					<label htmlFor="searchInput"></label>
 					<div className="inputs">
+
 						<input onChange ={this.inputChange} value={this.state.inputValue} type="text" id="searchInput" autoComplete="off" placeholder="Search movie..."/>
+
 						<NavLink to="/Results"> 
               				<input type="submit" value="Search"/>
             			</NavLink>
