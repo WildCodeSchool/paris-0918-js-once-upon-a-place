@@ -72,18 +72,25 @@ input[type="submit"]:hover {
 
 .intro{
 
-	margin: 5%;
-	width : 90%;
-	max-width: 800px;
+	margin: 0% 45%;
+	width : 100%;
 	text-align: center;
 	margin-top: 40px;
-	color: #212121 !important;
+	color: #212121;
 	font-weight: 800;
 	font-size: 1.25em;
-	background: rgba(255,255,255,0.3);
-	border-radius: 5px;
-}
+	}
 
 .intro p {
 	color: #212121;
+}
+
+.autoCompRes{
+	width: 70%
+}
+
+.autoCompLig{
+	background-color: #fff;
+	width: 70%;
+	cursor: pointer;
 }

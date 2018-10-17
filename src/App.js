@@ -8,17 +8,33 @@ import Footer from './Footer';
 import './App.css';
 
 class App extends Component {
+
+  state = {
+    inputValue:''
+  }
+
+  lift = (a) =>{
+    this.setState({inputValue:a})
+  }
+
   render() {
     return (
       <div className="App">
         <BrowserRouter>
                 <Switch>
-                  <Route exact path="/" component={Home} />
+                  <Route 
+                    exact path="/" 
+                    render={()=> 
+                      <Home 
+                        autoComp={this.autoComp}
+                        lift={this.lift}
+                      />} 
+                  />
                   <Route 
                     path="/Results" 
-                    render={(props)=> 
+                    render={()=> 
                       <Results 
-                        input={document.getElementById('searchInput').value} 
+                        inputValue={this.state.inputValue} 
                       />} 
                   />
                 </Switch>

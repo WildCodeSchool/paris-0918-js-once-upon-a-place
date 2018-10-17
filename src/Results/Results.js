@@ -1,76 +1,72 @@
 import React, { Component } from 'react';
-import { Route, BrowserRouter, Switch, NavLink } from 'react-router-dom';
+import {AppBar,Tabs,Tab} from '@material-ui/core';
 import ResultList from './ResultList';
 import Map from './Map';
 import HeaderResults from './HeaderResults';
-import './Results.css'
+import './Results.css';
 
 class Results extends Component {
   state = {
-    res: []
+    res: [],
+    isLoaded: false,
+    value: 0
   };
 
-  searchLoc = async () =>{
-    const input = this.props.input;
-    const api_call = await fetch(`https://data.sfgov.org/resource/wwmu-gmzc.json?$where=title like '%25${input}%25'&$limit=5`);
-    if (api_call.ok) {
-      const data = await api_call.json();
-      this.setState({
-        res: data
-      })
-    }else{
-      this.setState({
-        res: []
-      })
-    }
+  searchLoc = async (iValue) =>{
+    const api_call = await fetch(`https://data.sfgov.org/resource/wwmu-gmzc.json?$where=title like '%25${iValue}%25'&$limit=50`);
+    const data = await api_call.json();
+    this.setState({
+      res: api_call.ok ? data : [],
+      isLoaded: true
+    })
   };
 
   componentDidMount(){
-    this.searchLoc()
+    this.searchLoc(this.props.inputValue)
+  };
+
+  handleChange = (_, iValue) => {
+    this.setState({ value: iValue });
   };
 
   render(){
-    if (this.state.res.length > 0){
-      return(
-        <div className= "Results">
-          <HeaderResults inputValue={this.props.input} searchLoc={this.searchLoc}/>
-          <div className='resContent'>
-            <div className="mobileOnly">
-              <BrowserRouter>
-                <div className='router'>
-                  <NavLink 
-                    className="tab"
-                    to="/Results/List"
-                    >List</NavLink>
-                  <NavLink 
-                    className="tab"
-                    to="/Results/Map"
-                    >Map</NavLink>
-                  <Switch>
-                    <Route 
-                      path="/Results/List"
-                      render={(props)=> 
-                        <ResultList 
-                          locationsList={this.state.res} 
-                        />}
-                    />
-                    <Route path="/Results/Map" component={Map} />
-                  </Switch>
-                </div>
-              </BrowserRouter>
+    const { value } = this.state;
+    if (this.state.isLoaded){
+      if (this.state.res.length > 0){
+        return(
+          <div className= "Results">
+            <div className='resHeader'>
+              <HeaderResults inputValue={this.props.inputValue}  searchLoc={this.searchLoc}/>
             </div>
-            <div className="desktopOnly">      
-              <ResultList 
-                locationsList = {this.state.res} 
-              />
-              <Map />
+
+            <div className='resContent'>
+              <div className="mobileOnly">
+                <div>
+                  <AppBar position="static">
+                    <Tabs value={value} onChange={this.handleChange} centered>
+                      <Tab label="List" />
+                      <Tab label="Map" />
+                    </Tabs>
+                  </AppBar>
+                  {value === 0 && <ResultList 
+                    locationsList = {this.state.res} 
+                  />}
+                  {value === 1 && <Map />}
+                </div>
+              </div>
+              <div className="desktopOnly">      
+                <ResultList 
+                  locationsList = {this.state.res} 
+                />
+                <Map />
+              </div>
             </div>
           </div>
-        </div>
-      );
-    }else{
-      return <h2>La recherche n'a donné aucun résultat</h2>
-    }
+        );
+      }else{
+        return <h2>Sorry! Nothing was found!</h2>
+      }
+    }else{return<h2 className='loading'>Loading...</h2>}
   }
 }
 

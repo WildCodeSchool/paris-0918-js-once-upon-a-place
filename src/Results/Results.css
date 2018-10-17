@@ -46,3 +46,19 @@
     height: 100vh;
     width: 100vw;
 } */
+
+.mobileOnly{
+    display: none;
+} 
+.desktopOnly{
+    display: block;
+}
+
+@media screen and (max-width: 960px) {
+    .mobileOnly{
+        display: block;
+    }
+    .desktopOnly{
+        display: none;
+    }
+}
