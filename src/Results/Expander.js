@@ -43,9 +43,14 @@ const styles = theme => ({
   space: {
     width: theme.spacing.unit * 2
   },
+  moviePropsMain: {
+    flexDirection: "column",
+    justifyContent: "space-around",
+    marginLeft: "16px"
+  },
   movieProps: {
     flexDirection: "column",
-    justifyContent: "space-around"
+    justifyContent: "space-around",
   },
   moviePropsPoster: {
     flexDirection: "column",
@@ -88,8 +93,8 @@ const styles = theme => ({
     width: "400px",
     height: "300px",
     [theme.breakpoints.down("sm")]: {
-      width: "275px",
-      height: "175px"
+      width: "270px",
+      height: "170px"
     }
   }
 });
@@ -123,7 +128,7 @@ class DetailedExpansionPanel extends Component {
                 </div>
               </Grid>
               <div className={classes.space} />
-              <Grid container className={classes.movieProps}>
+              <Grid container className={classes.moviePropsMain}>
                 <Typography variant="h2" className={classes.movieTitle}>
                   {movie.title}
                 </Typography>
