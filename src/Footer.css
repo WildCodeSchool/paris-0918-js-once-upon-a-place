@@ -1,25 +1,22 @@
-footer{
+.Footer{
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: center;
 	align-items: center;
-
-	background-color: transparent;
 	height: 50px;
-	padding-bottom: 10px;
-	position: absolute;
+	position: sticky;
 	bottom: 0;
 	width: 100%;
 }
 
-p{
+.Footer p{
 	margin: 0;
 	margin-right: 10px;
 	padding: 0;
-	color: #fff;
+	color: black;
 }
 
-a{
-	color: #fff;
+.Footer p a, .Footer .footerNav{
+	color: black;
 	text-decoration: none;
 }

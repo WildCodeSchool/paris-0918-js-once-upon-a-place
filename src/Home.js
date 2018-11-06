@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Header from "./Header";
 import "./Home.css";
 import SearchBar from "./SearchBar";
+// import Footer from "./Footer";
 
 class Home extends Component {
   render() {
@@ -21,6 +22,7 @@ class Home extends Component {
             You could be surprised to find one near from you
           </p>
         </main>
+        {/* <Footer /> */}
       </div>
     );
   }

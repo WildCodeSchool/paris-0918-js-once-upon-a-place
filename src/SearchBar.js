@@ -48,9 +48,9 @@ const styles = theme => ({
     paddingLeft: theme.spacing.unit * 10,
     transition: theme.transitions.create("width"),
     [theme.breakpoints.up("sm")]: {
-      width: 200,
+      width: 213,
       "&:focus": {
-        width: 300
+        width: 313
       }
     }
   }
@@ -87,13 +87,15 @@ class SearchBar extends Component {
    */
   autoComp = (iStrValue) => {
     //The strUrl used to get a list of movies from the API
-    const strUrl = `https://data.sfgov.org/resource/wwmu-gmzc.json?$where=title like '%25${iStrValue}%25'`; //&$limit=50
+    const strUrl = `https://data.sfgov.org/resource/wwmu-gmzc.json?$q=${iStrValue}`;
     //The call to the API to get a json file contaning an array of movies
     axios.get(strUrl).then(json => {
       //A map is done on the list of movies to get only the titles
       //Then a sort is then done so the title will be in the alphabetical order
       //Then a filter is done to suppress the titles that appears several times
-      const arrTitles = json.data
+      const arrTitles = json.data.filter(movie =>
+        movie.title.toLowerCase().includes(iStrValue.toLowerCase())
+      )
         .map(iObjMovie => iObjMovie.title)
         .sort()
         .filter((iStrTitle, iIntIndex, iArrTitles) => iStrTitle !== iArrTitles[iIntIndex - 1]);

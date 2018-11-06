@@ -1,7 +1,7 @@
 import React from 'react';
 // const beginningURL = 'https://image.tmdb.org/t/p/w500'
 const Test = props =>{
-    console.log('film director', props.result)
+    //console.log('film director', props.result)
     return(
         <div>
             {props.result}

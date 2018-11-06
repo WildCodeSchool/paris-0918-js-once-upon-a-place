@@ -1,5 +1,4 @@
 .Results {
-    border: 1px solid grey;
     height: 100%;
     width: 100%;
     background-color: white;
@@ -7,6 +6,7 @@
     display: flex;
     flex-flow: column nowrap;
     justify-content: flex-start;
+    padding-bottom: 50px;
 }
 
 
@@ -46,7 +46,7 @@
 } 
 .desktopOnly {
     display: grid;
-    grid-template-columns: 5fr 6fr;
+    grid-template-columns: 5fr 7fr;
 }
 
 @media screen and (max-width: 960px) {

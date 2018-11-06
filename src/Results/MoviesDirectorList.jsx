@@ -33,7 +33,8 @@ class MoviesDirectorList extends React.Component {
             return (
                 resultUniq.map((information, i) => {
                 return (
-                    <Test key={i} result={information} />
+                    // <Test key={i} result={information} />
+                    <div />
                 )})
             )
     }

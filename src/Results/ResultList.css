@@ -1,9 +1,6 @@
-.card{
-    width: 100%;
-}
-
 .moviesContainer{
     width: 100%;
+    min-height: 100vh;
 }
 
 .center {

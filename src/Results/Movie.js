@@ -19,9 +19,10 @@ class Movie extends Component {
     const url = `https://api.themoviedb.org/3/movie/${this.state.movie.id}/videos?api_key=${API_KEY}&language=en-US`;
     axios.get(url)
       .then(res =>
-        this.setState({
-          youtubeKey: res.data.results[0].key
-        })
+        // console.log(res),
+         this.setState({
+           youtubeKey: res===undefined ? undefined : res.data===undefined ? undefined : res.data.results===undefined ? undefined : res.data.results[0]===undefined ? undefined : res.data.results[0].hasOwnProperty('key') ? res.data.results[0].key : undefined
+         })
       )
       .catch(res => console.log(res))
   }

@@ -33,6 +33,16 @@ const styles = theme => ({
 });
 
 class HeaderResults extends Component {
+
+  /**
+   * Handle the click on the IconButton (logo) that will redirect the site to Home
+   * We just want to change the color of the footer in that case
+   */
+  handleClick = () => {
+    //Function passed in props from the App Component
+    this.props.setFooterColor('transparent');
+  }
+  
   render() {
     //Get this.props.classes, this.props.inputValue, this.props.searchLoc, this.props.lift
     const { classes, inputValue, searchLoc, lift } = this.props;
@@ -45,6 +55,7 @@ class HeaderResults extends Component {
                 className={classes.menuButton}
                 color="inherit"
                 aria-label="Open drawer"
+                onClick={this.handleClick}
               >
                 <img src={logo} className={classes.logo} alt="logo" />
               </IconButton>
