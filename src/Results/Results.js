@@ -33,6 +33,11 @@ class Results extends Component {
     locationsList: []
   };
 
+  constructor() {
+    super();
+    this.refresh = 0;
+  }
+
   searchLoc = async (iValue) => {
     this.setState({
       isLoaded: false
@@ -109,11 +114,9 @@ class Results extends Component {
     }
     
     if (locationsOnPage.join('') !== this.state.locationsList.join('') ) {
-      console.log(locationsOnPage)
     
-      this.setState({locationsList : locationsOnPage}, console.log('state',this.state.locationsList));
+      this.setState({locationsList : locationsOnPage});
     }
-    console.log(locationsOnPage)
   }
 
   componentDidMount() {
@@ -124,6 +127,8 @@ class Results extends Component {
   render() {
     const { value, moviesList, locationsList } = this.state;
     const { classes, lift, inputValue, setFooterColor } = this.props;
+    
+    
     if (this.state.isLoaded) {
       if (this.state.moviesList.length > 0) {
         return (
