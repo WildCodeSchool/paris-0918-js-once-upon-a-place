@@ -64,6 +64,8 @@ class ResultList extends Component {
       isDisplayPrevious: currentNumberPage === 1 ? false : true,
       isDisplayNext: numberResultEnd === moviesList.length ? false : true
     });
+    this.props.getLocationsOnPage(pageArray)
+
   };
 
   /**

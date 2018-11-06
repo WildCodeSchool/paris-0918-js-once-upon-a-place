@@ -29,7 +29,8 @@ class Results extends Component {
   state = {
     isLoaded: false,
     moviesList: [],
-    value: 0
+    value: 0,
+    locationsList: []
   };
 
   searchLoc = async (iValue) => {
@@ -90,13 +91,38 @@ class Results extends Component {
     this.props.setDisplayFooter(blnDisplayFooter)
   };
 
+  getLocationsOnPage = (moviesOnPage) => {
+    
+    // const locationsOnPage = moviesOnPage.map((e,i) => {
+    //   e.locations
+    // })
+
+    let locationsOnPage = [];
+    
+    for (let i = 0; i < moviesOnPage.length; i++) {
+      const movie = moviesOnPage[i];
+      for (let j = 0; j < movie.locations.length; j++) {
+        locationsOnPage.push([movie.locations[j], movie.title]);
+        
+      }
+      
+    }
+    
+    if (locationsOnPage.join('') !== this.state.locationsList.join('') ) {
+      console.log(locationsOnPage)
+    
+      this.setState({locationsList : locationsOnPage}, console.log('state',this.state.locationsList));
+    }
+    console.log(locationsOnPage)
+  }
+
   componentDidMount() {
     this.searchLoc(this.props.inputValue);
     this.props.setFooterColor('white');
   };
 
   render() {
-    const { value, moviesList } = this.state;
+    const { value, moviesList, locationsList } = this.state;
     const { classes, lift, inputValue, setFooterColor } = this.props;
     if (this.state.isLoaded) {
       if (this.state.moviesList.length > 0) {
@@ -116,13 +142,14 @@ class Results extends Component {
                     <Tab classes={{root: classes.rootTab}} label="Map" />
                   </Tabs>
                 </AppBar>
-                {value === 0 && <ResultsList moviesList={moviesList} />}
-                {value === 1 && <SimpleMap moviesList={moviesList}/>}
+                {value === 0 && <ResultsList moviesList={moviesList} getLocationsOnPage={this.getLocationsOnPage}/>}
+                {value === 1 && <SimpleMap locationsList={locationsList}/>}
               </div>
             </div>
             <div className="desktopOnly">
-              <ResultsList moviesList={moviesList} />
-              <SimpleMap moviesList={moviesList}/>
+              <ResultsList moviesList={moviesList} getLocationsOnPage={this.getLocationsOnPage}/>              
+              <SimpleMap locationsList={locationsList}/>
+              
             </div>
             {/* <Footer/> */}
           </div>
