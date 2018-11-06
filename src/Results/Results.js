@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { AppBar, Tabs, Tab } from '@material-ui/core';
+import { withStyles } from "@material-ui/core/styles";
 import { FadeLoader } from 'react-spinners';
 import { Link } from 'react-router-dom';
+import axios from "axios";
+
 import SimpleMap from './Map';
 import HeaderResults from './HeaderResults';
-import { withStyles } from "@material-ui/core/styles";
-import './Results.css';
 import ResultsList from './ResultList';
+
+import './Results.css';
+
 // import Footer from '../Footer';
 
 const styles = theme => ({
@@ -32,25 +36,32 @@ class Results extends Component {
     value: 0
   };
 
-  searchLoc = async (iValue) => {
+  searchLoc = iValue => {
     this.setState({
       isLoaded: false
-    })
-    const api_call_Sf = await fetch(`https://data.sfgov.org/resource/wwmu-gmzc.json?$where=title like '%25${iValue}%25'`);
-    const datasSf = await api_call_Sf.json();
-
-    datasSf.sort((data1, data2) => (data1.title < data2.title ? -1 : 1)); //on trie les titres de film par ordre alphabétique
-
-    const datasSfExistingLocations = datasSf.filter(movie => movie.locations === undefined ? false : true) //on garde uniquement les films qui ont des lieux de tournage
-
-    const resMoviesList = this.transformDatasLocationInMovie(datasSfExistingLocations); // on appelle la fonction pour regrouper les lieux par film
-    this.setState({
-      moviesList: api_call_Sf.ok ? resMoviesList : [], //si l'appel API ok, alors on remplit le state (moviesList) avec le résultat
-      //de la fonction qui regroupe les lieux par film
-      isLoaded: true
     });
 
-  };
+    iValue = iValue.toLowerCase().trim()
+
+    const url = `https://data.sfgov.org/resource/wwmu-gmzc.json?$q=${iValue}`;
+    axios.get(url).then(res => {
+      let moviesList = res.data;
+      moviesList = this.transformDatasLocationInMovie(moviesList // on appelle la fonction pour regrouper les lieux par film
+        .filter(movie => movie.title.toLowerCase().includes(iValue))
+        .sort((data1, data2) => (data1.title < data2.title ? -1 : 1)) //on trie les titres de film par ordre alphabétique;
+      )
+      this.setState({
+        moviesList,
+        isLoaded: true,
+      });
+    })
+    .catch(() =>{
+      this.setState({
+        moviesList: [],
+        isLoaded: true,
+      })
+    });
+  }
 
   transformDatasLocationInMovie = datasSfExistingLocations => {
     let res = [];
@@ -59,14 +70,17 @@ class Results extends Component {
     let add = {};
     const synopsis = "No data available";
     const getFilm = (res, data) => {
-      return res.filter(f => f.title === data.title && f.release_year === data.release_year);//(on compare le nouveau titre de film )
-    } //qui est inséré dans data avec ceux qui sont déjà dans res (les films) pour voir s'ils ont les mm titres et la mm année pour
+      return res.filter(
+        f => f.title === data.title && f.release_year === data.release_year
+      ); //(on compare le nouveau titre de film )
+    }; //qui est inséré dans data avec ceux qui sont déjà dans res (les films) pour voir s'ils ont les mm titres et la mm année pour
     //les regrouper par lieux de tournage
 
     for (let i = 0; i < datasSfExistingLocations.length; i++) {
       data = datasSfExistingLocations[i];
       film = getFilm(res, data);
-      if (!film.length) { //équivaut à film.length===0
+      if (!film.length) {
+        //équivaut à film.length===0
         add = {
           title: data.title,
           release_year: data.release_year,
@@ -74,7 +88,8 @@ class Results extends Component {
           synopsis: synopsis,
           actors: new Array(data.actor_1, data.actor_2, data.actor_3),
           director: data.director,
-          image: "http://www.bsmc.net.au/wp-content/uploads/No-image-available.jpg"
+          image:
+            "http://www.bsmc.net.au/wp-content/uploads/No-image-available.jpg"
         };
         res.push(add);
       } else {
@@ -107,6 +122,7 @@ class Results extends Component {
               searchLoc={this.searchLoc}
               lift={lift}
               setFooterColor={setFooterColor}
+              blnHome = {false}
             />
             <div className="mobileOnly">
               <div>
@@ -117,37 +133,39 @@ class Results extends Component {
                   </Tabs>
                 </AppBar>
                 {value === 0 && <ResultsList moviesList={moviesList} />}
-                {value === 1 && <SimpleMap />}
+                {value === 1 && <SimpleMap moviesList={moviesList}/>}
               </div>
             </div>
             <div className="desktopOnly">
               <ResultsList moviesList={moviesList} />
-              <SimpleMap />
+              <SimpleMap moviesList={moviesList}/>
             </div>
             {/* <Footer/> */}
           </div>
         );
       } else {
         return (
-          <div className='Results'>
+          <div className="Results">
             <h2>Your query doesn't match with any movie.</h2>
-            <Link className='linkToHome' to='/'>Make another query</Link> 
+            <Link className="linkToHome" to="/">
+              Make another query
+            </Link>
           </div>
-        )
+        );
       }
     } else {
       return (
-        <div className='Results'>
-          <div className='loadingSpinner'>
+        <div className="Results">
+          <div className="loadingSpinner">
             <FadeLoader
               sizeUnit={"px"}
               size={150}
-              color={'black'}
+              color={"black"}
               loading={!this.state.isloaded}
             />
           </div>
         </div>
-      )
+      );
     }
   }
 }

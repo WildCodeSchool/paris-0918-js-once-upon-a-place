@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Header from "./Header";
 import "./Home.css";
 import SearchBar from "./SearchBar";
+import EveryLocationsButton from './EveryLocationsButton';
 // import Footer from "./Footer";
 
 class Home extends Component {
@@ -21,6 +22,7 @@ class Home extends Component {
             world with Once Upon A Place. <br />
             You could be surprised to find one near from you
           </p>
+          <EveryLocationsButton />
         </main>
         {/* <Footer /> */}
       </div>
