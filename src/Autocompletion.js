@@ -21,7 +21,6 @@ const styles = theme => ({
 });
 
 class Autocompletion extends Component {
-  
   //---Handle the click on a MenuItem component
   handleClickOnMenuItem = iEvent => {
     //Allow to launch the handleSelect function which is passed in props from SearchBar 
@@ -29,6 +28,7 @@ class Autocompletion extends Component {
   }
 
   render() {
+
     //Get this.props.classes, this.props.anchorEl, this.props.elWidth, this.props.titlesList
     const { classes, anchorEl, elWidth, titlesList } = this.props;
 

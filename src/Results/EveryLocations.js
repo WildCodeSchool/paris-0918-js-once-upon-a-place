@@ -1,29 +1,37 @@
 import React, { Component } from 'react';
 
+import axios from 'axios';
+
 import HeaderResults from './HeaderResults';
 import GlobalMap from './GlobalMap';
 
 class EveryLocations extends Component {
-    searchLoc = async (iValue) => {
+    searchLoc = iValue => {
         this.setState({
           isLoaded: false
-        })
-        const api_call_Sf = await fetch(`https://data.sfgov.org/resource/wwmu-gmzc.json?$where=title like '%25${iValue}%25'`);
-        const datasSf = await api_call_Sf.json();
-        console.log('data', datasSf)
-    
-        datasSf.sort((data1, data2) => (data1.title < data2.title ? -1 : 1)); //on trie les titres de film par ordre alphabétique
-    
-        const datasSfExistingLocations = datasSf.filter(movie => movie.locations === undefined ? false : true) //on garde uniquement les films qui ont des lieux de tournage
-    
-        const resMoviesList = this.transformDatasLocationInMovie(datasSfExistingLocations); // on appelle la fonction pour regrouper les lieux par film
-        this.setState({
-          moviesList: api_call_Sf.ok ? resMoviesList : [], //si l'appel API ok, alors on remplit le state (moviesList) avec le résultat
-          //de la fonction qui regroupe les lieux par film
-          isLoaded: true
         });
     
-      };
+        iValue = iValue.toLowerCase().trim()
+    
+        const url = `https://data.sfgov.org/resource/wwmu-gmzc.json?$q=${iValue}`;
+        axios.get(url).then(res => {
+          let moviesList = res.data;
+          moviesList = this.transformDatasLocationInMovie(moviesList // on appelle la fonction pour regrouper les lieux par film
+            .filter(movie => movie.title.toLowerCase().includes(iValue))
+            .sort((data1, data2) => (data1.title < data2.title ? -1 : 1)) //on trie les titres de film par ordre alphabétique;
+          )
+          this.setState({
+            moviesList,
+            isLoaded: true,
+          });
+        })
+        .catch(() =>{
+          this.setState({
+            moviesList: [],
+            isLoaded: true,
+          })
+        });
+      }
     
       transformDatasLocationInMovie = datasSfExistingLocations => {
         let res = [];
