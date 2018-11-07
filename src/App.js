@@ -3,6 +3,7 @@ import { Route, BrowserRouter, Switch } from "react-router-dom";
 import "./App.css";
 import Home from "./Home.js";
 import Results from "./Results/Results";
+import EveryLocations from "./Results/EveryLocations";
 import Footer from "./Footer";
 import Team from "./Team";
 import "./App.css";
@@ -59,9 +60,13 @@ class App extends Component {
                 path="/Results"
                 render={() => <Results setDisplayFooter={this.setDisplayFooter} setFooterColor={this.setFooterColor} inputValue={inputValue} lift={this.lift} />}
               />
+              <Route
+                path="/EveryLocations"
+                render={() => <EveryLocations setDisplayFooter={this.setDisplayFooter} setFooterColor={this.setFooterColor} inputValue={inputValue} lift={this.lift} /> }
+              />
               <Route 
-                path="/team" 
-                render={() => <Team />} 
+                path="/Team" 
+                render={() => <Team setFooterColor={this.setFooterColor}/>} 
               />
             </Switch>
             <Footer footerColor={footerColor} displayFooter={displayFooter}/>

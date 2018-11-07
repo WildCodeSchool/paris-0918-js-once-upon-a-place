@@ -1,12 +1,16 @@
-import React, { Component } from "react";
-import { AppBar, Tabs, Tab } from "@material-ui/core";
-import { FadeLoader } from "react-spinners";
-import { Link } from "react-router-dom";
-import SimpleMap from "./Map";
-import HeaderResults from "./HeaderResults";
+import React, { Component } from 'react';
+import { AppBar, Tabs, Tab } from '@material-ui/core';
 import { withStyles } from "@material-ui/core/styles";
-import "./Results.css";
-import ResultsList from "./ResultList";
+import { FadeLoader } from 'react-spinners';
+import { Link } from 'react-router-dom';
+import axios from "axios";
+
+import SimpleMap from './Map';
+import HeaderResults from './HeaderResults';
+import ResultsList from './ResultList';
+
+import './Results.css';
+
 // import Footer from '../Footer';
 
 const styles = theme => ({
@@ -33,35 +37,32 @@ class Results extends Component {
     locationsList: []
   };
 
-  constructor() {
-    super();
-    this.refresh = 0;
-  }
-
-  searchLoc = async iValue => {
+  searchLoc = iValue => {
     this.setState({
       isLoaded: false
     });
-    const api_call_Sf = await fetch(
-      `https://data.sfgov.org/resource/wwmu-gmzc.json?$where=title like '%25${iValue}%25'`
-    );
-    const datasSf = await api_call_Sf.json();
 
-    datasSf.sort((data1, data2) => (data1.title < data2.title ? -1 : 1)); //on trie les titres de film par ordre alphabétique
+    iValue = iValue.toLowerCase().trim()
 
-    const datasSfExistingLocations = datasSf.filter(
-      movie => (movie.locations === undefined ? false : true)
-    ); //on garde uniquement les films qui ont des lieux de tournage
-
-    const resMoviesList = this.transformDatasLocationInMovie(
-      datasSfExistingLocations
-    ); // on appelle la fonction pour regrouper les lieux par film
-    this.setState({
-      moviesList: api_call_Sf.ok ? resMoviesList : [], //si l'appel API ok, alors on remplit le state (moviesList) avec le résultat
-      //de la fonction qui regroupe les lieux par film
-      isLoaded: true
+    const url = `https://data.sfgov.org/resource/wwmu-gmzc.json?$q=${iValue}`;
+    axios.get(url).then(res => {
+      let moviesList = res.data;
+      moviesList = this.transformDatasLocationInMovie(moviesList // on appelle la fonction pour regrouper les lieux par film
+        .filter(movie => movie.title.toLowerCase().includes(iValue))
+        .sort((data1, data2) => (data1.title < data2.title ? -1 : 1)) //on trie les titres de film par ordre alphabétique;
+      )
+      this.setState({
+        moviesList,
+        isLoaded: true,
+      });
+    })
+    .catch(() =>{
+      this.setState({
+        moviesList: [],
+        isLoaded: true,
+      })
     });
-  };
+  }
 
   transformDatasLocationInMovie = datasSfExistingLocations => {
     let res = [];
@@ -164,6 +165,7 @@ class Results extends Component {
               searchLoc={this.searchLoc}
               lift={lift}
               setFooterColor={setFooterColor}
+              blnHome = {false}
             />
             <div className="mobileOnly">
               <div>
