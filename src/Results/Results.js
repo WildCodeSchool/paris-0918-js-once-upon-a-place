@@ -15,17 +15,17 @@ import './Results.css';
 
 const styles = theme => ({
   rootTabs: {
-    backgroundColor: 'white',
-    color: 'black'
+    backgroundColor: "white",
+    color: "black"
   },
   rootTab: {
     flexGrow: 1
   },
   selectedTab: {
-    backgroundColor: '#98e6e6',
+    backgroundColor: "#98e6e6",
     flexGrow: 1,
     left: 0,
-    width: '50%'
+    width: "50%"
   }
 });
 
@@ -33,7 +33,8 @@ class Results extends Component {
   state = {
     isLoaded: false,
     moviesList: [],
-    value: 0
+    value: 0,
+    locationsList: []
   };
 
   searchLoc = iValue => {
@@ -101,18 +102,60 @@ class Results extends Component {
 
   handleChange = (_, iValue) => {
     this.setState({ value: iValue });
-    const blnDisplayFooter = iValue===1 ? 'none' : 'flex';
-    this.props.setDisplayFooter(blnDisplayFooter)
+    const blnDisplayFooter = iValue === 1 ? "none" : "flex";
+    this.props.setDisplayFooter(blnDisplayFooter);
+  };
+
+  getLocationsOnPage = moviesOnPage => {
+
+    let locationsOnPage = [];
+    for (let i = 0; i < moviesOnPage.length; i++) {
+      const movie = moviesOnPage[i];
+      for (let j = 0; j < movie.locations.length; j++) {
+
+        let location = movie.locations[j].toLowerCase();
+        let strSplit = [];
+        strSplit = location.split(String.fromCharCode(40));
+        if (strSplit.length > 0 && strSplit[1]!=null) {
+          location = strSplit[1];
+          location = location.substring(0, location.length - 1);
+
+          if (!location.includes("streets") || !location.includes("street")) {
+            location += " street";
+          }
+        }
+
+        if (location.includes(" from ") && location.includes(" to ")) {
+          strSplit = location.split("from");
+          location = strSplit[0];
+
+          if (!location.includes("streets") || !location.includes("street")) {
+            location += " street";
+          }
+        }
+
+        location = location.replace(/ & /g, "%20");
+        location = location.replace(/ /g, "%20");
+        location = location + "%2C%20san%20francisco%2C%20CA";
+
+        locationsOnPage.push([location, movie.title]);
+      }
+    }
+
+    if (locationsOnPage.join("") !== this.state.locationsList.join("")) {
+      this.setState({ locationsList: locationsOnPage });
+    }
   };
 
   componentDidMount() {
     this.searchLoc(this.props.inputValue);
-    this.props.setFooterColor('white');
-  };
+    this.props.setFooterColor("white");
+  }
 
   render() {
-    const { value, moviesList } = this.state;
+    const { value, moviesList, locationsList } = this.state;
     const { classes, lift, inputValue, setFooterColor } = this.props;
+
     if (this.state.isLoaded) {
       if (this.state.moviesList.length > 0) {
         return (
@@ -127,18 +170,34 @@ class Results extends Component {
             <div className="mobileOnly">
               <div>
                 <AppBar position="static">
-                  <Tabs value={value} onChange={this.handleChange} centered classes={{root: classes.rootTabs, indicator: classes.selectedTab}}>
-                    <Tab classes={{root: classes.rootTab}} label="List" />
-                    <Tab classes={{root: classes.rootTab}} label="Map" />
+                  <Tabs
+                    value={value}
+                    onChange={this.handleChange}
+                    centered
+                    classes={{
+                      root: classes.rootTabs,
+                      indicator: classes.selectedTab
+                    }}
+                  >
+                    <Tab classes={{ root: classes.rootTab }} label="List" />
+                    <Tab classes={{ root: classes.rootTab }} label="Map" />
                   </Tabs>
                 </AppBar>
-                {value === 0 && <ResultsList moviesList={moviesList} />}
-                {value === 1 && <SimpleMap moviesList={moviesList}/>}
+                {value === 0 && (
+                  <ResultsList
+                    moviesList={moviesList}
+                    getLocationsOnPage={this.getLocationsOnPage}
+                  />
+                )}
+                {value === 1 && <SimpleMap locationsList={locationsList} />}
               </div>
             </div>
             <div className="desktopOnly">
-              <ResultsList moviesList={moviesList} />
-              <SimpleMap moviesList={moviesList}/>
+              <ResultsList
+                moviesList={moviesList}
+                getLocationsOnPage={this.getLocationsOnPage}
+              />
+              <SimpleMap locationsList={locationsList} />
             </div>
             {/* <Footer/> */}
           </div>

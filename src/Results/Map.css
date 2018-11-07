@@ -11,10 +11,6 @@
 }
 
 
-.Icon {
-    border: 2px solid red;
-    background: red;
-}
 
 @media screen and (max-width: 960px) {
     .map {
