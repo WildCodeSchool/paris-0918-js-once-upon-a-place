@@ -40,35 +40,31 @@ class Home extends Component {
         <Header />
         <main className="mainPart">
           <div className="ok">
-          <Grid item xs={12}>
-          <Grid container  justify="center" spacing={Number(spacing)}>
-            {[0].map(value => (
-              <Grid key={value} item>
-                <div className="searchBar">
-                        <p className="searchBarIntro">Want to know where a movie has been shot ? <br/>
-                        Type its title just here :</p>
-                        <SearchBar inputValue='' lift={lift} blnHome={true} />
-                </div>
-              </Grid>
-
-            ))}
-              {[0].map(value => (
-              <Grid key={value} item>
-                <div className="everyLocationsButton">
-                        <p className ="buttonIntro">Want to see all movie locations in San Francisco ? <br/>
-                        Click below:</p>
-                        <EveryLocationsButton />
-                </div>
-              </Grid>
-            ))}
-
-          </Grid>
+          
+          <Grid container  justify="center" direction ="row" alignItems="center" spacing={Number(spacing)}>
+            <Grid item xs={8} md={5}>
+                  <div className="searchBar">
+                          <p className="searchBarIntro">Want to know where a movie has been shot ? <br/>
+                          Type its title just here :</p>
+                          <SearchBar inputValue='' lift={lift} blnHome={true} />
+                  </div>
+            </Grid>
+            <Grid item xs={0} md={2}>
+              <div className="empty">
+              </div>
+            </Grid>
+            <Grid item xs={8} md={5}>
+              <div className="everyLocationsButton">
+                <p className ="buttonIntro">Want to see all movie locations in San Francisco ? <br/>
+                Click below:</p>
+                <EveryLocationsButton />
+              </div>
+            </Grid>
           </Grid>
 
           </div>
           <p className="intro">
-            Discover where your favorites movies have been shot around the
-            world with Once Upon A Place. <br />
+            Discover where your favorites movies have been shot in San Francisco with Once Upon A Place. <br />
             You could be surprised to discover one next from your place...
           </p>
         </main>

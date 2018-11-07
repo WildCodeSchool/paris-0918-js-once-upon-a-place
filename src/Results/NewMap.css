@@ -9,12 +9,3 @@
     position: fixed;
     
 }
-
-
-
-@media screen and (max-width: 960px) {
-    .map {
-        width: 100%;
-        height: 80vh;
-    }
-}
