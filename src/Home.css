@@ -23,12 +23,12 @@
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
-	margin-right: 140px;
+	/* padding-right: 100px; */
 	/* background-color: rgb(0,0,0, 0.3); */
 	background-color: rgb(255,255,255, 0.5);
 	padding: 15px;
 	border-radius: 10px;
-
+	min-width: 400px;
 }
 
 .searchBarIntro {
@@ -47,11 +47,11 @@
 }
 
 .everyLocationsButton{
-	margin-left: 140px;
+	/* padding-left: 100px; */
 	background-color: rgb(255,255,255, 0.5);
 	padding: 15px;
 	border-radius: 10px;
-
+	min-width: 400px;
 }
 
 .intro {
@@ -72,5 +72,21 @@
 @media screen and (max-width : 768px){
 	.intro{
 		font-size: 1em;	
+	}
+	.everyLocationsButton{
+		min-width: 200px;
+		background-color: rgb(255,255,255, 0);
+	}
+	.buttonIntro{
+		font-size: 1em;	
+		display: none;
+	}
+	.searchBarIntro{
+		font-size: 1em;
+		display: none;
+	}
+	.searchBar {
+		min-width: 200px;
+		background-color: rgb(255,255,255, 0);
 	}
 }

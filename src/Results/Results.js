@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { AppBar, Tabs, Tab } from '@material-ui/core';
 import { withStyles } from "@material-ui/core/styles";
 import { FadeLoader } from 'react-spinners';
-import { Link } from 'react-router-dom';
 import axios from "axios";
 
 import SimpleMap from './Map';
 import HeaderResults from './HeaderResults';
 import ResultsList from './ResultList';
+import NoResults from './NoResults';
+import NewMap from './NewMap';
 
 import './Results.css';
 
@@ -205,11 +206,31 @@ class Results extends Component {
       } else {
         return (
           <div className="Results">
-            <h2>Your query doesn't match with any movie.</h2>
-            <Link className="linkToHome" to="/">
-              Make another query
-            </Link>
+            <HeaderResults
+              inputValue={inputValue}
+              searchLoc={this.searchLoc}
+              lift={lift}
+              setFooterColor={setFooterColor}
+              blnHome = {false}
+            />
+          <div className="desktopOnly">
+            <NoResults   inputValue={inputValue}
+            searchLoc={this.searchLoc}
+            lift={lift}
+            setFooterColor={setFooterColor}
+            blnHome = {false} />
+            <NewMap moviesList={moviesList}/>
           </div>
+          <div className="mobileOnly">
+          <div>
+          <NoResults   inputValue={inputValue}
+            searchLoc={this.searchLoc}
+            lift={lift}
+            setFooterColor={setFooterColor}
+            blnHome = {false} />
+          </div>
+        </div>
+        </div>
         );
       }
     } else {

@@ -1,0 +1,11 @@
+.Map-container {
+    margin-top: 9px;
+    display: flex;
+}
+
+.map {
+    height: 84.5vh;
+    width: 58%;
+    position: fixed;
+    
+}
