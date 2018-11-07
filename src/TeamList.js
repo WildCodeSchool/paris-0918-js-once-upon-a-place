@@ -2,31 +2,31 @@ export const TeamList = [
     {
         id: 0,
         name: "Elisa Bourgeois",
-        img: "https://via.placeholder.com/200x200"
+        img: "./images/Elisa.jpg"
     },
     {
         id: 1,
         name: "Widaad Barreto",
-        img: "https://via.placeholder.com/200x200"
+        img: "./images/Widaad.jpg"
     },
     {
         id: 2,
         name: "Christophe Ribault",
-        img: "https://via.placeholder.com/200x200"
+        img: "./images/Christophe.jpg"
     },
     {
         id: 3,
         name: "Mohamed Kerkeb",
-        img: "https://via.placeholder.com/200x200"
+        img: "./images/Mohammed.jpg"
     },
     {
         id: 4,
         name: "David Huveau",
-        img: "https://via.placeholder.com/200x200"
+        img: "./images/David.jpg"
     },
     {
         id: 5,
         name: "Hugo Trichard",
-        img: "https://via.placeholder.com/200x200"
+        img: "./images/Hugo.jpg"
     },   
 ];

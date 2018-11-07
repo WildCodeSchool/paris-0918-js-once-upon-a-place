@@ -1,0 +1,30 @@
+.Team {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.Team a {
+    text-decoration: none;
+    color: black;
+}
+
+.Team header{
+    position: inherit !important;
+    margin-top: 20px;
+}
+
+.Team .team-members {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    margin: 10px;
+}
+
+.Team .team-member{
+    margin: 10px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+

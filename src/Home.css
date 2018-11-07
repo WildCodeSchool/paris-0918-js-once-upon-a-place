@@ -11,22 +11,58 @@
   	padding: 0;
 }
 
+@import url('https://fonts.googleapis.com/css?family=Chivo|Indie+Flower');
+
+.ok{
+	padding-top: 150px;
+}
+
 .searchBar {
-	width: 100%;
+	/* width: 100%; */
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-around;
 	align-items: center;
+	/* padding-right: 100px; */
+	/* background-color: rgb(0,0,0, 0.3); */
+	background-color: rgb(255,255,255, 0.5);
+	padding: 15px;
+	border-radius: 10px;
+	min-width: 400px;
+}
+
+.searchBarIntro {
+	font-size: 1.3em;
+	font-style: bold;
+	margin-top: 0px;
+	font-family: 'Chivo', sans-serif;
+
+}
+
+.buttonIntro{
+	font-size: 1.3em;
+	font-style: bold;
+	margin-top: 0px;
+	font-family: 'Chivo', sans-serif;
+}
+
+.everyLocationsButton{
+	/* padding-left: 100px; */
+	background-color: rgb(255,255,255, 0.5);
+	padding: 15px;
+	border-radius: 10px;
+	min-width: 400px;
 }
 
 .intro {
 	margin: 0% 45%;
 	width : 100%;
 	text-align: center;
-	margin-top: 40px;
+	padding-top: 100px;
 	color: #212121;
 	font-weight: 800;
 	font-size: 1.25em;
+	font-style: italic;
 }
 
 .intro p {
@@ -36,5 +72,21 @@
 @media screen and (max-width : 768px){
 	.intro{
 		font-size: 1em;	
+	}
+	.everyLocationsButton{
+		min-width: 200px;
+		background-color: rgb(255,255,255, 0);
+	}
+	.buttonIntro{
+		font-size: 1em;	
+		display: none;
+	}
+	.searchBarIntro{
+		font-size: 1em;
+		display: none;
+	}
+	.searchBar {
+		min-width: 200px;
+		background-color: rgb(255,255,255, 0);
 	}
 }

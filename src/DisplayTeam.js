@@ -3,8 +3,8 @@ import './DisplayTeam.css';
 
 const DisplayTeam = (props) => {
     return (
-        <div className = "display-team">
-            <img src = {props.img} alt = "member-pic" />
+        <div className = "team-member">
+            <img src = {require(`${props.img}`)} alt = {props.name} />
             <h2>{props.name}</h2>
         </div>
     )

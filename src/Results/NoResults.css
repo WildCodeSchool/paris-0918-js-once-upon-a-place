@@ -1,0 +1,19 @@
+.content {
+    /* display: flex;
+    justify-content: space-around; */
+    width: 100%;
+    min-height: 100vh;
+}
+
+.noResults{
+    text-align: center;
+    font-family: 'Chivo', sans-serif;
+}
+
+.imgNoResults{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Chivo|Indie+Flower');
