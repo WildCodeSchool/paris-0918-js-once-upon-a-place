@@ -14,13 +14,10 @@ class SimpleMap extends Component {
     zoom: 12,
   };
 
- 
-
-
   render() {
     const { locationsList } = this.props;
     const position = [this.state.lat, this.state.lng];
-    
+    console.log('loc', locationsList)
     return (
       <div className="Map-container">
         <Map className="map" center={position} zoom={this.state.zoom}>
@@ -28,7 +25,7 @@ class SimpleMap extends Component {
             attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {locationsList.length !== 0 && locationsList.map((e,i) => (
+          {locationsList && locationsList.map((e,i) => (
               <MapMarker key={i} location={e[0]} title={e[1]}/>
             ))}
         </Map>

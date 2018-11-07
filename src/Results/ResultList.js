@@ -112,10 +112,6 @@ class ResultList extends Component {
     this.getMoviesPerPage();
   }
 
-  componentWillReceiveProps() {
-    this.getMoviesPerPage();
-  }
-
   render() {
     const {
       moviesPerPage,
