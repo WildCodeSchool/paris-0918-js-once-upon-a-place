@@ -1,9 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 
-import Test from './Test';
-
-
 class MoviesDirectorList extends React.Component {
 
     state = {
