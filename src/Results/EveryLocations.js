@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import HeaderResults from './HeaderResults';
-import GlobalMap from './GlobalMap';
+import GlobalMap from './GlobalMap/GlobalMap';
 
 class EveryLocations extends Component {
     searchLoc = iValue => {
