@@ -48,7 +48,11 @@ class Results extends Component {
     const url = `https://data.sfgov.org/resource/wwmu-gmzc.json?$q=${iValue}`;
     axios.get(url).then(res => {
       let moviesList = res.data;
-      moviesList = this.transformDatasLocationInMovie(moviesList // on appelle la fonction pour regrouper les lieux par film
+
+      const datasSfExistingLocations = moviesList.filter(movie => movie.locations == undefined ? false : true) //on garde uniquement les films qui ont des lieux de tournage
+      //const resMoviesList = this.transformDatasLocationInMovie(datasSfExistingLocations);
+
+      moviesList = this.transformDatasLocationInMovie(datasSfExistingLocations // on appelle la fonction pour regrouper les lieux par film
         .filter(movie => movie.title.toLowerCase().includes(iValue))
         .sort((data1, data2) => (data1.title < data2.title ? -1 : 1)) //on trie les titres de film par ordre alphabétique;
       )
@@ -109,9 +113,11 @@ class Results extends Component {
 
   getLocationsOnPage = moviesOnPage => {
 
+    console.log('1', moviesOnPage)
     let locationsOnPage = [];
     for (let i = 0; i < moviesOnPage.length; i++) {
       const movie = moviesOnPage[i];
+      console.log('2', movie)
       for (let j = 0; j < movie.locations.length; j++) {
 
         let location = movie.locations[j].toLowerCase();
