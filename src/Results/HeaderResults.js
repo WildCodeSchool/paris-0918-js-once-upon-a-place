@@ -61,7 +61,7 @@ class HeaderResults extends Component {
               </IconButton>
             </NavLink>
             <div className={classes.grow} />
-            <SearchBar inputValue={inputValue} searchLoc={searchLoc} lift={lift} blnHome={false}/>
+            <SearchBar inputValue={inputValue} searchLoc={searchLoc} lift={lift} blnHome={this.props.blnHome}/>
           </Toolbar>
         </AppBar>
       </div>

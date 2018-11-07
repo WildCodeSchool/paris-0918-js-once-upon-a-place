@@ -37,18 +37,17 @@ class Results extends Component {
   };
 
   searchLoc = iValue => {
-
     this.setState({
       isLoaded: false
     });
+
+    iValue = iValue.toLowerCase().trim()
 
     const url = `https://data.sfgov.org/resource/wwmu-gmzc.json?$q=${iValue}`;
     axios.get(url).then(res => {
       let moviesList = res.data;
       moviesList = this.transformDatasLocationInMovie(moviesList // on appelle la fonction pour regrouper les lieux par film
-        .filter(movie =>
-          movie.title.toLowerCase().includes(iValue.toLowerCase())
-        )
+        .filter(movie => movie.title.toLowerCase().includes(iValue))
         .sort((data1, data2) => (data1.title < data2.title ? -1 : 1)) //on trie les titres de film par ordre alphabétique;
       )
       this.setState({
@@ -123,6 +122,7 @@ class Results extends Component {
               searchLoc={this.searchLoc}
               lift={lift}
               setFooterColor={setFooterColor}
+              blnHome = {false}
             />
             <div className="mobileOnly">
               <div>

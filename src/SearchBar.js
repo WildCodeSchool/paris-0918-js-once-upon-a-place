@@ -135,6 +135,7 @@ class SearchBar extends Component {
    * @param {string} iStrSearch : search value
    */
   submitOrSelectSearchValue = (iStrSearch) =>  {
+    console.log('blnHome', this.props.blnHome)
     //If we are in Results page, launch the searchLoc function which is a function passed in props from Results
     if (!this.props.blnHome) {
       this.props.searchLoc(iStrSearch);
@@ -196,6 +197,7 @@ class SearchBar extends Component {
     const { classes } = this.props;
     //Get this.state.inputValue, this.state.openAutocompletion, this.state.titlesList
     const { inputValue, openAutocompletion, titlesList } = this.state;
+    console.log(this.state.inputValue)
 
     return (
       <form

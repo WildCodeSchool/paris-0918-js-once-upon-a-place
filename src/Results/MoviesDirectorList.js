@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import DirectorMovies from './DirectorMovies';
 
-
 class MoviesDirectorList extends React.Component {
 
     state = {
