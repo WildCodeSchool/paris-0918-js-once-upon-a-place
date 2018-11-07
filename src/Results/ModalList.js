@@ -6,6 +6,20 @@ import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import MoviesDirectorList from './MoviesDirectorList';
 import './ModalList.css';
+import { Dialog, DialogContent, DialogTitle } from '@material-ui/core';
+
+const style = {
+    dialogmovie : {
+      width: 300,
+      minHeight: 200
+    },
+    dialogtitlemovie : {
+      textAlign: 'center',
+      paddingTop: 7,
+      paddingBottom: 0
+    }
+}
+
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -51,19 +65,34 @@ class SimpleModal extends React.Component {
     return (
       <div>
         <Button variant='outlined' className="modal-button" onClick={this.handleOpen}>See all his movies</Button>
-        <Modal
+        <Dialog open={this.state.open}
+          onClose={this.handleClose}
+          className = 'dialog'
+        >
+            <DialogTitle style={style.dialogtitlemovie}><b>Director movie list</b><hr/></DialogTitle>
+            
+            <DialogContent style={style.dialogmovie}>
+            {/* <div style={getModalStyle()} className={classes.paper}> */}
+                {/* <Typography variant="h6" id="modal-title"> */}
+                    <MoviesDirectorList directorName={this.props.directorName} title={this.props.title} />
+                {/* </Typography> */}
+             {/* </div> */}
+            </DialogContent>
+            <Button className='button-close' onClick={this.handleClose} variant='contained'>Close</Button>
+        </Dialog>
+        {/* <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
           open={this.state.open}
           onClose={this.handleClose}
         >
           <div style={getModalStyle()} className={classes.paper}>
-            
+
             <Typography variant="h6" id="modal-title">
               <MoviesDirectorList directorName={this.props.directorName} title={this.props.title}/>
             </Typography>
           </div>
-        </Modal>
+        </Modal> */}
       </div>
     );
   }

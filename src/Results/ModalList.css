@@ -5,3 +5,11 @@
     font-size: 11px !important;
     text-transform: none !important;
 }
+
+.dialog {
+    padding: 20 !important;
+}
+
+.button-close {
+    margin: 15px !important;
+}

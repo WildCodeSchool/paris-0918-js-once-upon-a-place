@@ -22,6 +22,7 @@ class MoviesDirectorList extends React.Component {
     }
 
     render() {
+        console.log('toto')
         //uniqu est un tableau avec la liste de films non répétés, car l'API ressort les infos par lieu de films, j'ai donc plusieurs fois le mm film
         //pour chaque réalisateur, ici j'ai donc une liste avec les titres de film unique
 
@@ -30,16 +31,15 @@ class MoviesDirectorList extends React.Component {
         // })
         //resultUniq me permet d'avoir la liste des films uniques sans le titre du film affiché par l'expander
             return (
-                
-                this.state.moviesDirectorList.sort()
+                <ul>
+                {this.state.moviesDirectorList.sort()
                 .filter((movie,i,t) => movie !== t[i-1] && movie !== this.state.title)
                 .map((title, i) => {
                     return (
-                        <div>
-                            <DirectorMovies key={i} title={title} />
-                        </div>
+                            <li><DirectorMovies key={i} title={title} /></li>
                     //<ModalList key={i} result={information} />
                 )})
+                    }</ul>
             );
     }
 }
